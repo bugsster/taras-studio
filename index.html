@@ -14,7 +14,7 @@
   --night-bg:#1a1a22; --night-text:#f4eade;
   --day-bg:#f4eade;   --day-text:#1a1a22;
   --purple:#8800ff;   --btn-bg:#fcc232; --btn-text:#1a1a22;
-  --tog-on:#78cb55;
+  --tog-on:#42B450;
   --ua-blue:#009dff;  --ua-yellow:#fff600;
   --bounce:cubic-bezier(.34,1.56,.64,1);
   --smooth:cubic-bezier(.77,0,.175,1);
@@ -140,14 +140,15 @@ body.night{background:var(--night-bg);color:var(--night-text);}
   align-items:center;
   width:clamp(90px,17.22vw,248px);
   height:clamp(51px,9.79vw,141px);
-  background:#97919d;
+  background:#42B450; /* day default */
   border-radius:9999px;
   padding:clamp(4px,.625vw,9px);
   cursor:pointer;
   flex-shrink:0;
   transition:background .4s ease;
 }
-body.day #tog{background:var(--tog-on);}
+body.day #tog{background:#42B450;}
+body.night #tog{background:#010002;}
 
 .knob{
   width:clamp(42px,7.99vw,115px);
@@ -194,7 +195,8 @@ body.night .day-only{display:none;}
 #btn{
   position:absolute;top:0;left:0;
   display:inline-flex;align-items:center;
-  gap:.49em;
+  justify-content:space-between;
+  gap:0;
   background:transparent;
   color:var(--btn-text);
   font-family:inherit;font-weight:900;font-size:1em;
@@ -204,6 +206,7 @@ body.night .day-only{display:none;}
   white-space:nowrap;
   width:auto;
 }
+.bl{flex:1;text-align:left;}
 .ba{flex-shrink:0;width:.964em;height:1.044em;display:inline-block;}
 .ba svg{width:100%;height:100%;display:block;}
 .ba svg path{fill:var(--btn-text);}
@@ -279,7 +282,7 @@ body::after{
 }
 </style>
 </head>
-<body>
+<body class="day">
 
 <div class="page">
 
@@ -369,6 +372,7 @@ let isNight = false;
 const setMode = () => {
   const before = btnWrap.getBoundingClientRect().left;
   document.body.classList.toggle('night', isNight);
+  document.body.classList.toggle('day', !isNight);
   tog.setAttribute('aria-checked', isNight ? 'false' : 'true');
   requestAnimationFrame(() => {
     const delta = before - btnWrap.getBoundingClientRect().left;
