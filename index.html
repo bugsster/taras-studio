@@ -107,6 +107,7 @@ body.night{background:var(--night-bg);color:var(--night-text);}
 .word-cycle{
   color:var(--purple);
   flex:1;
+  min-width:0; /* дозволяє flex-item стискатись нижче content-size */
   cursor:pointer;
   position:relative;
   overflow:hidden;
@@ -336,7 +337,7 @@ body::after{
       </span>
       <span>ЗУМНИКИ</span>
     </div>
-    <a class="appstore-btn" href="https://apps.apple.com" target="_blank"><svg width="175" height="51" viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <a class="appstore-btn" href="https://apps.apple.com/ua/app/%D1%80%D0%BE%D0%B7%D1%83%D0%BC%D0%BD%D0%B8%D0%BA%D0%B8/id6761614716" target="_blank"><svg width="175" height="51" viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_9_63)">
 <mask id="mask0_9_63" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="175" height="51">
 <path d="M175 0H0V51H175V0Z" fill="white"/>
@@ -488,7 +489,7 @@ function initBtn(){
     applySpring(0);
   });
 }
-requestAnimationFrame(initBtn);
+document.fonts.ready.then(()=>requestAnimationFrame(initBtn));
 
 function buildPath(W,H,bow){
   const r=H/2,m=W/2;
